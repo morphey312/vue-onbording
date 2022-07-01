@@ -14,7 +14,7 @@
           </div>
           <div class="col-6">
             <button v-if="isEdit" class="btn btn-info m-1" @click="saveItem" type="button">Save</button>
-            <button class="btn btn-info m-1" @click="editItem(itemName)" type="button">Edit</button>
+            <button v-if="!isEdit" class="btn btn-info m-1" @click="editItem(itemName)" type="button">Edit</button>
             <button class="btn btn-danger m-1" @click="deleteItem(item.id)" type="button">Delete</button>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default {
     };
   },
   created() {
-    this.itemName = this.item.name;
+    this.itemName = this.item.description;
   },
   methods: {
     deleteItem(id) {

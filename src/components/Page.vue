@@ -22,6 +22,10 @@ export default {
   methods: {
     addItem() {
       this.$emit('add-item', { item: this.inputValue });
+      this.$router.push({
+        name : 'about',
+        params: { id: '123', item: this.inputValue }
+      });
       this.inputValue = '';
     },
   },
