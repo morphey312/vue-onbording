@@ -10,21 +10,24 @@
 
 <script>
 
+import {mapActions} from "vuex";
+
 export default {
-  name: 'Page',
+  name: 'AddButton',
   props: ['placeholder'],
   data() {
     return {
       inputValue: '',
       disableButton: false,
+      dayOfWeek: 0,
     };
   },
   methods: {
+    ...mapActions(["addItemToList"]),
     addItem() {
-      this.$emit('add-item', { item: this.inputValue });
-      this.$router.push({
-        name : 'about',
-        params: { id: '123', item: this.inputValue }
+      this.addItemToList({
+        description: this.inputValue,
+        day_of_week: this.dayOfWeek,
       });
       this.inputValue = '';
     },
