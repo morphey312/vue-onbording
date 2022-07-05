@@ -25,6 +25,8 @@
 
 <script>
 
+import {mapActions} from "vuex";
+
 export default {
   name: 'ToDoItem',
   props: {
@@ -47,6 +49,7 @@ export default {
     this.itemName = this.item.description;
   },
   methods: {
+    ...mapActions(["updateItemInList"]),
     deleteItem(id) {
       this.$emit('delete-item', id)
     },
@@ -56,7 +59,12 @@ export default {
     },
     saveItem() {
       this.isEdit = false;
-      this.item.name = this.itemName;
+      this.updateItemInList({
+        id: this.item.id,
+        description: this.itemName,
+        day_of_week: this.item.day_of_week,
+      });
+      this.inputValue = '';
     },
     checkedValue(event) {
       this.$emit('checked-value', {

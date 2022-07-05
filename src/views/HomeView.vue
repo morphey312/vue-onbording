@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import Page from "@/components/Page.vue";
-import axios from 'axios';
+import Page from "@/components/AddButton.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'HomeView',
@@ -50,37 +50,18 @@ export default {
   },
   data() {
     return {
-      todoItems: {},
-          // [
-      //   {
-      //     id: 1,
-      //     name: 'Погладить кота'
-      //   },
-      //   {
-      //     id: 2,
-      //     name: 'Сходить в магазин'
-      //   },
-      //   {
-      //     id: 3,
-      //     name: 'Приготовить поесть'
-      //   },
-      // ],
-      id: 4,
       doneItems: [],
     };
   },
   mounted() {
-    axios.get('http://backend.dev/api/todo',{
-    })
-        .then((resp) => {
-          this.todoItems = resp.data.data;
-        }).catch((err) => console.log(err, err.message));
+    this.getTodoList();
   },
   methods: {
+    ...mapActions(["getTodoList"]),
     addToList(event) {
       this.todoItems.push({
-        id: this.id++,
-        name: event.item,
+        id: this.todoItems.length + 1,
+        description: event.item,
       });
     },
     deleteItem(event) {
@@ -100,6 +81,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["todoItems"]),
     showItemsCount() {
       return this.todoItems.length;
     },
