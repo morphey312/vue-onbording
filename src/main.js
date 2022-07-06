@@ -11,6 +11,13 @@ Vue.config.productionTip = false
 
 Vue.component('to-do-item', ToDoItem)
 
+Vue.directive('focus', {
+  inserted: function (el, binding) {
+    el.focus();
+    console.log(`Derective's name: ${binding.name}`);
+  }
+})
+
 new Vue({
   router,
   store,

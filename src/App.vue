@@ -1,14 +1,25 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Week Schedule</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/counter">Counter</router-link>
     </nav>
     <router-view/>
   </div>
 </template>
+<script>
+import {mapActions} from "vuex";
 
+export default {
+  created() {
+    this.getTodoList();
+  },
+  methods: {
+    ...mapActions(["getTodoList"]),
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, 'sans-serif';

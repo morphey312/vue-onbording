@@ -1,5 +1,4 @@
 import { axiosInstance } from "@/service/api";
-import axios from "axios";
 
 export default {
     getTodoList({commit}) {
@@ -18,6 +17,12 @@ export default {
     },
     updateItemInList({dispatch}, item) {
         return axiosInstance.patch(`todo/${item.id}`, item)
+            .then((resp) => {
+                dispatch('getTodoList')
+            })
+    },
+    deleteTodoItem({dispatch}, item) {
+        return axiosInstance.delete(`todo/${item}`)
             .then((resp) => {
                 dispatch('getTodoList')
             })

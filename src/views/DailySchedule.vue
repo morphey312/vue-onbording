@@ -4,18 +4,16 @@
     <div class="container">
       <div class="row justify-content-md-center">
         <div class=" col-9">
-          <page
+          <add-button
               placeholder="Things to be done"
-              @add-item="addToList"
           />
           <hr>
           <to-do-item
               id="ul"
-              v-for="(item, index) in todoItems"
+              v-for="(item, index) in dailySchedule"
               :key="item.id"
               :item="item"
               :index="index"
-              @delete-item="deleteItem"
               @checked-value="setDoneList"
           />
           <hr>
@@ -40,34 +38,26 @@
 </template>
 
 <script>
-import Page from "@/components/AddButton.vue";
-import {mapActions, mapGetters} from "vuex";
+import AddButton from "@/components/AddButton.vue";
+import {mapGetters} from "vuex";
 
 export default {
-  name: 'HomeView',
+  name: 'DailySchedule',
   components: {
-    Page,
+    AddButton,
+  },
+  props: {
+    day: String,
   },
   data() {
     return {
       doneItems: [],
     };
   },
-  mounted() {
-    this.getTodoList();
+  created() {
+    console.log();
   },
   methods: {
-    ...mapActions(["getTodoList"]),
-    addToList(event) {
-      this.todoItems.push({
-        id: this.todoItems.length + 1,
-        description: event.item,
-      });
-    },
-    deleteItem(event) {
-      let index = this.todoItems.findIndex((item) => item.id === event);
-      this.todoItems.splice(index,1);
-    },
     setDoneList(event) {
       if (event.checked) {
         let index = this.doneItems.findIndex((item) => item.id === event.id);
@@ -81,9 +71,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["todoItems"]),
+    ...mapGetters(["dailySchedule"]),
     showItemsCount() {
-      return this.todoItems.length;
+      return this.dailyTodoList ? this.dailyTodoList.length : 0;
     },
     sortDoneItem() {
       if (this.doneItems.length) {
