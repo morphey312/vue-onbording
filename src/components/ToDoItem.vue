@@ -15,7 +15,7 @@
           <div class="col-6">
             <button v-if="isEdit" class="btn btn-info m-1" @click="saveItem" type="button">Save</button>
             <button v-if="!isEdit" class="btn btn-info m-1" @click="editItem(itemName)" type="button">Edit</button>
-            <button class="btn btn-danger m-1" @click="deleteItem(item.id)" type="button">Delete</button>
+            <button class="btn btn-danger m-1" @click="deleteItem" type="button">Delete</button>
           </div>
         </div>
       </li>
@@ -26,9 +26,11 @@
 <script>
 
 import {mapActions} from "vuex";
+import saveItem from "@/mixins/saveItem";
 
 export default {
   name: 'ToDoItem',
+  mixins: [saveItem],
   props: {
     item: {
       type: Object,
@@ -40,31 +42,19 @@ export default {
   },
   data() {
     return {
-      itemName: '',
-      isEdit: false,
-      doneItem: [],
     };
   },
   created() {
     this.itemName = this.item.description;
   },
   methods: {
-    ...mapActions(["updateItemInList"]),
-    deleteItem(id) {
-      this.$emit('delete-item', id)
+    ...mapActions(["deleteTodoItem"]),
+    deleteItem() {
+      this.deleteTodoItem(this.item.id)
     },
     editItem(name) {
       this.isEdit = true;
       this.itemName = name;
-    },
-    saveItem() {
-      this.isEdit = false;
-      this.updateItemInList({
-        id: this.item.id,
-        description: this.itemName,
-        day_of_week: this.item.day_of_week,
-      });
-      this.inputValue = '';
     },
     checkedValue(event) {
       this.$emit('checked-value', {
