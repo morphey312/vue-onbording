@@ -5,8 +5,11 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-          <input v-focus type="email" v-model="details.email" class="form-control" id="floatingInput" placeholder="name@example.com">
-          <label for="floatingInput">Email address</label>
+          <input v-focus type="name" v-model="details.name" class="form-control" id="floatingName" placeholder="name@example.com">
+          <label for="floatingName">User Name</label>
+        </div><div class="form-floating">
+          <input type="email" v-model="details.email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+          <label for="floatingEmail">Email address</label>
         </div>
         <div class="form-floating">
           <input type="password" v-model="details.password" class="form-control" id="floatingPassword" placeholder="Password">
@@ -52,16 +55,16 @@ export default {
     async sendCredentials() {
       if (this.signIn) {
         await this.sendLoginRequest(this.details);
-        await this.getTodoList();
+        await this.getTodoList(this.apiToken);
       } else {
         await this.sendRegisterRequest(this.details);
-        await this.getTodoList();
+        await this.getTodoList(this.apiToken);
       }
     },
   },
   computed: {
     ...mapGetters(["errors"]),
-    ...mapGetters("auth", ["user"]),
+    ...mapGetters("auth", ["user", "apiToken"]),
   },
 }
 </script>

@@ -5,7 +5,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import ToDoItem from "@/components/ToDoItem";
 import store from './store/state.js'
-import axios from "axios";
 
 
 Vue.config.productionTip = false

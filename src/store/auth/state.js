@@ -6,7 +6,8 @@ import actions from "@/store/auth/actions";
 export default {
   namespaced: true,
   state: () => ({
-    userData: null
+    userData: null,
+    apiToken: '',
   }),
   getters,
   mutations,

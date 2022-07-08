@@ -1,5 +1,5 @@
 export default {
     todoItems: state => state.todoItems,
-    dailySchedule: state => state.dailySchedule,
+    currentDay: state => state.currentDay,
     errors: state => state.errors,
 }

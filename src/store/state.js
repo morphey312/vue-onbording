@@ -10,7 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     todoItems: {},
-    dailySchedule: {},
+    currentDay: null,
     errors: [],
   },
   getters,

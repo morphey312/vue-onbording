@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>ToDo List</h1>
+    <h2>{{ `For ${day}` }}</h2>
     <div class="container">
       <div class="row justify-content-md-center">
         <div class=" col-9">
@@ -71,9 +72,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["dailySchedule"]),
+    ...mapGetters(["todoItems", "currentDay"]),
     showItemsCount() {
-      return this.dailyTodoList ? this.dailyTodoList.length : 0;
+      return this.dailySchedule ? this.dailySchedule.length : 0;
     },
     sortDoneItem() {
       if (this.doneItems.length) {
@@ -90,6 +91,14 @@ export default {
       } else {
         return [];
       }
+    },
+    dailySchedule() {
+      let result = [];
+      if(this.todoItems && Object.keys(this.todoItems).length) {
+        result = this.todoItems.filter(todo => +todo.day_of_week === this.currentDay);
+      }
+
+      return result
     }
   },
 }

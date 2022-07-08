@@ -21,7 +21,7 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("authToken")) {
-      this.getUserData();
+      this.getUserData(this.apiToken);
     }
   },
   methods: {
@@ -36,7 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("auth", ["user"]),
+    ...mapGetters("auth", ["user","apiToken"]),
   },
 }
 </script>

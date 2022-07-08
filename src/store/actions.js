@@ -1,7 +1,10 @@
 import { axiosInstance } from "@/service/api";
 
 export default {
-    getTodoList({commit}) {
+    getTodoList({commit}, token = null) {
+        if(!token) {
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
         return axiosInstance.get('todo',{
             })
             .then((resp) => {
