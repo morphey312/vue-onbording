@@ -9,9 +9,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 6,
     todoItems: {},
     dailySchedule: {},
+    errors: [],
   },
   getters,
   mutations,

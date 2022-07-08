@@ -1,3 +1,3 @@
 export default {
-    stateCountA: state => state.countA,
+    user: state => state.userData
 }

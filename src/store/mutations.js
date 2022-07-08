@@ -1,12 +1,5 @@
 export default {
-    setIncreaseCount(state, payLoad) {
-        state.count += payLoad;
-    },
-    setDecreaseCount(state, payLoad) {
-        state.count -= payLoad;
-    },
-    setTodoItems(state, items) {
-        state.todoItems = items;
-    },
+    setTodoItems: (state, items) => state.todoItems = items,
     setDailySchedule: (state, items) => state.dailySchedule = items,
+    setErrors: (state, errors) => state.errors = errors,
 }

@@ -27,10 +27,4 @@ export default {
                 dispatch('getTodoList')
             })
     },
-    increaseCount({commit}, payLoad) {
-        commit('setIncreaseCount', payLoad);
-    },
-    decreaseCount({commit}, payLoad) {
-        commit('setDecreaseCount', payLoad);
-    },
 }
