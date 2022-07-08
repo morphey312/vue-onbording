@@ -17,21 +17,6 @@ Vue.directive('focus', {
   }
 })
 
-axios.interceptors.response.use(
-    response => response,
-    error => {
-      if (error.response.status === 422) {
-        store.commit("setErrors", error.response.data.errors);
-      } else if (error.response.status === 401) {
-        store.commit("auth/setUserData", null);
-        localStorage.removeItem("authToken");
-        router.push({ name: "Login" });
-      } else {
-        return Promise.reject(error);
-      }
-    }
-);
-
 new Vue({
   router,
   store,
