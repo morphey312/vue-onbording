@@ -1,7 +1,10 @@
 import { axiosInstance } from "@/service/api";
 
 export default {
-    getTodoList({commit}) {
+    getTodoList({commit}, token = null) {
+        if(!token) {
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
         return axiosInstance.get('todo',{
             })
             .then((resp) => {
@@ -26,11 +29,5 @@ export default {
             .then((resp) => {
                 dispatch('getTodoList')
             })
-    },
-    increaseCount({commit}, payLoad) {
-        commit('setIncreaseCount', payLoad);
-    },
-    decreaseCount({commit}, payLoad) {
-        commit('setDecreaseCount', payLoad);
     },
 }

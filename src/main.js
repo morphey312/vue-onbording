@@ -8,9 +8,7 @@ import store from './store/state.js'
 
 
 Vue.config.productionTip = false
-
 Vue.component('to-do-item', ToDoItem)
-
 Vue.directive('focus', {
   inserted: function (el, binding) {
     el.focus();

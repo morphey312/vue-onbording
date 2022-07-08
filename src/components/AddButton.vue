@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="input-group mb-3">
+    <div @keyup.enter="addItem" class="input-group mb-3">
       <input v-focus type="text" class="form-control" :class="{'is-invalid': disableButton}" :placeholder="placeholder" aria-label="Recipient's username" v-model="inputValue" aria-describedby="button-addon2">
       <button :disabled="disableButton" class="btn btn-success" type="button" @click="addItem" id="button-addon2">Button</button>
     </div>
@@ -10,16 +10,15 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: 'AddButton',
-  props: ['placeholder', 'value'],
+  props: ['placeholder'],
   data() {
     return {
       inputValue: '',
       disableButton: false,
-      dayOfWeek: 0,
     };
   },
   methods: {
@@ -27,10 +26,13 @@ export default {
     addItem() {
       this.addItemToList({
         description: this.inputValue,
-        day_of_week: this.dayOfWeek,
+        day_of_week: this.currentDay,
       });
       this.inputValue = '';
     },
+  },
+  computed: {
+    ...mapGetters(["currentDay"])
   },
   watch: {
     inputValue(newVal) {

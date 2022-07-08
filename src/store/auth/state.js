@@ -1,10 +1,15 @@
 import getters from "@/store/auth/getters";
+import mutations from "@/store/auth/mutations";
+import actions from "@/store/auth/actions";
 
 
 export default {
   namespaced: true,
   state: () => ({
-    countA: 10,
+    userData: null,
+    apiToken: '',
   }),
   getters,
+  mutations,
+  actions,
 }

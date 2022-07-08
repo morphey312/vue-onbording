@@ -44,9 +44,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setDailySchedule"]),
+    ...mapMutations(["setCurrentDay"]),
     openDailySchedule() {
-      this.setDailySchedule(this.todoItems);
+      this.setCurrentDay(this.index);
       this.$router.push({
         name: 'daily-schedule',
         params: {

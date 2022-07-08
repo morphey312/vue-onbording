@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import store from '../store/state.js'
 import VueRouter from 'vue-router'
 import WeekSchedule from '../views/WeekSchedule.vue'
-import HomeView from '../views/DailySchedule.vue'
+import Auth from "../views/Auth";
 import PageNotFound from '../views/PageNotFound.vue'
 import additionalRoutes from "@/router/routes/routes";
 
@@ -9,9 +10,17 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/week-schedule',
     name: 'week-schedule',
-    component: WeekSchedule
+    component: WeekSchedule,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/',
+    name: 'authenticate',
+    component: Auth
   },
   {
     path: '*',
@@ -26,6 +35,16 @@ const router = new VueRouter({
   linkExactActiveClass: "is-active-exact-route",
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  let user = await store.getters['auth/user'];
+  if (requiresAuth && !user) {
+    next('/');
+  } else {
+    next();
+  }
 })
 
 export default router
