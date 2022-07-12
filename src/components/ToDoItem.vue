@@ -25,7 +25,6 @@
 
 <script>
 
-import {mapActions} from "vuex";
 import saveItem from "@/mixins/saveItem";
 
 export default {
@@ -48,9 +47,8 @@ export default {
     this.itemName = this.item.description;
   },
   methods: {
-    ...mapActions(["deleteTodoItem"]),
     deleteItem() {
-      this.deleteTodoItem(this.item.id)
+      this.$emit('delete-todo-item', this.item);
     },
     editItem(name) {
       this.isEdit = true;

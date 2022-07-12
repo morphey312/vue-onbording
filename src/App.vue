@@ -6,7 +6,7 @@
       <router-link to="/about">About</router-link>
     </nav>
     <div v-if="user">
-      <span class="text-decoration-underline fw-bold">{{ user.name }}</span> |
+      <span class="text-decoration-underline fw-bold">{{ user.data.name }}</span> |
       <span @click="logout" class="logout text-decoration-underline fw-bold">Log out</span>
     </div>
     <router-view/>
