@@ -8,6 +8,12 @@
           <add-button
               placeholder="Things to be done"
           />
+          <file-loader
+              ref="customComponent"
+          />
+          <button @click="fileLoad">
+            Load File
+          </button>
           <hr>
           <to-do-item
               id="ul"
@@ -16,6 +22,7 @@
               :item="item"
               :index="index"
               @checked-value="setDoneList"
+              @delete-todo-item="openModal"
           />
           <hr>
           <div class="col-9">
@@ -35,16 +42,37 @@
         </div>
       </div>
     </div>
+    <modal v-if="showModal">
+      <template v-slot:header>
+        Warning
+      </template>
+      <template v-slot:body>
+        {{ `Are you sure that you want to delete ${deleteItem.description}` }}
+
+      </template>
+      <template v-slot:footer="props">
+        <button class="btn btn-info" @click="confirmedDelete">
+          Ok
+        </button>
+        <button class="btn btn-default" @click="showModal = false">
+          Cancel
+        </button>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
 import AddButton from "@/components/AddButton.vue";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
+import Modal from "@/components/Modal";
+import FileLoader from "@/components/FileLoader";
 
 export default {
   name: 'DailySchedule',
   components: {
+    FileLoader,
+    Modal,
     AddButton,
   },
   props: {
@@ -53,12 +81,15 @@ export default {
   data() {
     return {
       doneItems: [],
+      showModal: false,
+      deleteItem: {},
     };
   },
   created() {
     console.log();
   },
   methods: {
+    ...mapActions(["deleteTodoItem"]),
     setDoneList(event) {
       if (event.checked) {
         let index = this.doneItems.findIndex((item) => item.id === event.id);
@@ -69,6 +100,19 @@ export default {
         let index = this.doneItems.findIndex((item) => item.id === event.id);
         this.doneItems.splice(index,1);
       }
+    },
+    openModal(event) {
+      this.showModal = true;
+      this.deleteItem = event;
+    },
+    confirmedDelete() {
+      this.deleteTodoItem(this.deleteItem.id);
+      this.showModal = false;
+    },
+    fileLoad() {
+      let element = this.$refs.customComponent;
+      console.log(element);
+      element.sendFile();
     }
   },
   computed: {

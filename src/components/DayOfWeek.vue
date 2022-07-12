@@ -14,7 +14,7 @@
         </ol>
         <div class="d-flex justify-content-between align-items-center mt-3">
           <div class="btn-group">
-            <button @click="openDailySchedule" type="button" class="btn btn-sm btn-outline-secondary">
+            <button v-if="isAllowed" @click="openDailySchedule" type="button" class="btn btn-sm btn-outline-secondary">
                 Edit
             </button>
           </div>
@@ -27,7 +27,7 @@
 
 <script>
 import DailyScheduleTodoItem from "@/components/DailyScheduleTodoItem";
-import {mapMutations} from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 
 export default {
   name: 'DayOfWeek',
@@ -56,8 +56,12 @@ export default {
     },
   },
   computed: {
+    ...mapGetters("auth", ["user"]),
     todoItemsList() {
         return this.todoItems ?? [];
+    },
+    isAllowed() {
+      return this.user?.data.permission === 1;
     }
   },
 }
